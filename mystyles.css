@@ -1,0 +1,54 @@
+body {
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5dc; /* Cream color */
+    color: #333;
+}
+
+header {
+    background-color: #033a30; /* Green accent */
+    color: rgba(255, 255, 255, 0.546);
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h1.center-text {
+    font-family: 'Georgia', serif;
+    color: #ffffff;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Georgia', serif;
+    color: #2d3436;
+}
+
+.about-div, .gallery-div, .video-div, .contact-div {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #dfe6e9;
+    border-radius: 10px;
+    background-color: white;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+footer {
+    background-color: #033a30; /* Green accent */
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

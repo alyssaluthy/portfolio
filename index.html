@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Portfolio</title>
+    <link rel="stylesheet" href="mystyles.css">
+    <style>
+        .center-text {
+            text-align: center;
+        }
+
+        .gallery-div {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .gallery-div img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .favorites-section {
+            margin: 20px;
+        }
+
+        .tableau-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="center-text">Welcome to My Portfolio</h1>
+        <nav>
+            <a href="#tableau">Interactive Tableau</a>
+            <a href="#video">Video</a>
+            <a href="resume.html" target="_blank">Resume</a>
+            <a href="tetris.html" target="_blank">Tetris</a>
+            <a href=" /Users/alyssaluthygmail.com/Desktop/Website design/startbootstrap-freelancer-gh-pages/index.html" target="_blank">Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="about-div">
+                <h2 class="center-text">About Me</h2>
+                <p>I am an artist specializing in abstract and modern art. Explore my work and feel free to reach out!</p>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2 class="center-text">Gallery</h2>
+            <div class="gallery-div">
+                <img src="IMG_7319.jpg" alt="Artwork Sample 1">
+                <img src="IMG_7307.jpg" alt="Artwork Sample 2">
+                <img src="IMG_8429.jpg" alt="Artwork Sample 3">
+                <img src="IMG_8090.jpg" alt="Artwork Sample 4">
+                <img src="IMG_7330.jpg" alt="Artwork Sample 5">
+                <img src="IMG_8099.jpg" alt="Artwork Sample 6">
+            </div>
+        </section>
+
+        <section id="tableau" class="tableau-section">
+            <h2 class="center-text">Interactive Tableau Visualization</h2>
+            <div class='tableauPlaceholder' id='viz1734405375822' style='position: relative'>
+                <noscript>
+                    <a href='https://www.tableau.com/'>
+                        <img alt='Mixed Trochoids' src='https://public.tableau.com/static/images/Tr/Tricked-Out-Trochoids_10_0/TrochoidDashboard/1_rss.png' style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='Tricked-Out-Trochoids_10_0&#47;TrochoidDashboard' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Tr&#47;Tricked-Out-Trochoids_10_0&#47;TrochoidDashboard&#47;1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                </object>
+            </div>
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1734405375822');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                if (divElement.offsetWidth > 800) {
+                    vizElement.style.width = '936px';
+                    vizElement.style.height = '747px';
+                } else if (divElement.offsetWidth > 500) {
+                    vizElement.style.width = '936px';
+                    vizElement.style.height = '747px';
+                } else {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = '627px';
+                }
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </section>
+
+        <section class="favorites-section">
+            <h2 class="center-text">My Favorites</h2>
+            <ol>
+                <li>My Favorite Techniques:
+                    <ul>
+                        <li>Watercolors</li>
+                        <li>Acrylics</li>
+                        <li>Digital Illustration</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="video">
+            <div class="video-div">
+                <h2 class="center-text">Featured Video</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/lrE8fWHHyW4" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="contact-div">
+                <h2 class="center-text">Contact Me</h2>
+                <p>Feel free to reach out to discuss my work or potential collaborations.</p>
+                <a href="#about">Back to About Me</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>

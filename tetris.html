@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #000;
+            border: 3px solid #444;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Play Tetris!</h2>
+    <p>Use the Arrow Keys: Left, Right, Down, and Up to play!</p>
+    <canvas id="tetris" width="300" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById("tetris");
+        const context = canvas.getContext("2d");
+        const scale = 30; // Each block size
+
+        context.scale(scale, scale);
+
+        // Create the Tetris board
+        const ROWS = canvas.height / scale;
+        const COLUMNS = canvas.width / scale;
+        const board = Array.from({ length: ROWS }, () => Array(COLUMNS).fill(0));
+
+        // Define Tetromino shapes
+        const TETROMINOS = {
+            I: [
+                [1, 1, 1, 1]
+            ],
+            J: [
+                [0, 0, 1],
+                [1, 1, 1]
+            ],
+            L: [
+                [1, 0, 0],
+                [1, 1, 1]
+            ],
+            O: [
+                [1, 1],
+                [1, 1]
+            ],
+            S: [
+                [0, 1, 1],
+                [1, 1, 0]
+            ],
+            T: [
+                [0, 1, 0],
+                [1, 1, 1]
+            ],
+            Z: [
+                [1, 1, 0],
+                [0, 1, 1]
+            ]
+        };
+
+        // Colors for each shape
+        const COLORS = ["cyan", "blue", "orange", "yellow", "green", "purple", "red"];
+
+        // Generate a random Tetromino
+        function randomTetromino() {
+            const keys = Object.keys(TETROMINOS);
+            const shape = TETROMINOS[keys[Math.floor(Math.random() * keys.length)]];
+            return {
+                shape,
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                position: { x: Math.floor(COLUMNS / 2) - 1, y: 0 }
+            };
+        }
+
+        let currentPiece = randomTetromino();
+
+        function draw() {
+            context.fillStyle = "#000";
+            context.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
+
+            // Draw the board
+            board.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        context.fillStyle = value;
+                        context.fillRect(x, y, 1, 1);
+                    }
+                });
+            });
+
+            // Draw the current piece
+            currentPiece.shape.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        context.fillStyle = currentPiece.color;
+                        context.fillRect(
+                            currentPiece.position.x + x,
+                            currentPiece.position.y + y,
+                            1,
+                            1
+                        );
+                    }
+                });
+            });
+        }
+
+        function movePiece(offset) {
+            currentPiece.position.x += offset;
+            if (collide()) currentPiece.position.x -= offset;
+        }
+
+        function dropPiece() {
+            currentPiece.position.y++;
+            if (collide()) {
+                currentPiece.position.y--;
+                merge();
+                currentPiece = randomTetromino();
+                if (collide()) {
+                    alert("Game Over!");
+                    resetBoard();
+                }
+            }
+        }
+
+        function rotatePiece() {
+            const oldShape = currentPiece.shape;
+            currentPiece.shape = currentPiece.shape[0].map((_, index) =>
+                currentPiece.shape.map(row => row[index]).reverse()
+            );
+            if (collide()) currentPiece.shape = oldShape;
+        }
+
+        function collide() {
+            return currentPiece.shape.some((row, y) =>
+                row.some(
+                    (value, x) =>
+                        value !== 0 &&
+                        (board[y + currentPiece.position.y]?.[x + currentPiece.position.x] !== 0 ||
+                            y + currentPiece.position.y >= ROWS)
+                )
+            );
+        }
+
+        function merge() {
+            currentPiece.shape.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        board[y + currentPiece.position.y][x + currentPiece.position.x] =
+                            currentPiece.color;
+                    }
+                });
+            });
+            clearRows();
+        }
+
+        function clearRows() {
+            board.forEach((row, y) => {
+                if (row.every(value => value !== 0)) {
+                    board.splice(y, 1);
+                    board.unshift(Array(COLUMNS).fill(0));
+                }
+            });
+        }
+
+        function resetBoard() {
+            board.forEach(row => row.fill(0));
+        }
+
+        let dropCounter = 0;
+        let dropInterval = 1000;
+        let lastTime = 0;
+
+        function update(time = 0) {
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            dropCounter += deltaTime;
+            if (dropCounter > dropInterval) {
+                dropPiece();
+                dropCounter = 0;
+            }
+
+            draw();
+            requestAnimationFrame(update);
+        }
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "ArrowLeft") movePiece(-1);
+            if (event.key === "ArrowRight") movePiece(1);
+            if (event.key === "ArrowDown") dropPiece();
+            if (event.key === "ArrowUp") rotatePiece();
+        });
+
+        update();
+    </script>
+</body>
+</html>
